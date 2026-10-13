@@ -33,14 +33,17 @@ export const axios = Axios.create({
 
 axios.interceptors.request.use(
   (config) => {
-    const { token, locale } = useBoundStore.getState()
+    const { token } = useBoundStore.getState()
     const skipAuthHeader = config.skipAuthHeader || isPublicAuthUrl(config.url)
     if (token && !skipAuthHeader) {
       config.headers.Authorization = `Bearer ${token}`
     } else {
       config.headers.delete?.("Authorization")
     }
-    config.headers["Accept-Language"] = locale
+    if (!config.headers.get("Accept-Language")) {
+      // Administrative DTOs populate source editors. Explicit overrides are for previews.
+      config.headers["Accept-Language"] = "en"
+    }
     return config
   },
   (error) => Promise.reject(error)

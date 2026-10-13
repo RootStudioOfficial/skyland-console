@@ -41,4 +41,9 @@ Tour inclusions, exclusions, and terms use rich text editors and retain existing
 content. Attraction, hot tour, hotel pickup, and badge logo inputs are hidden; existing values
 are preserved when editing. The backend accepts rich text sections up to 20,000 characters.
 
+Administrative API requests use the canonical English source locale, preventing an unrelated
+edit from replacing source content with a generated translation in any editor. An explicit
+`Accept-Language` override is reserved for localized previews. The console language preference
+and fixed interface labels are a separate concern; the current interface labels remain English.
+
 hello world
