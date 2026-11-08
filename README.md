@@ -51,4 +51,3 @@ edit from replacing source content with a generated translation in any editor. A
 and fixed interface labels are a separate concern; the current interface labels remain English.
 
 hello world
-
