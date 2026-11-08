@@ -416,8 +416,9 @@ function PackageCard({
           <div>
             <p className="text-sm font-semibold">Private tour options</p>
             <p className="mt-1 text-xs text-muted-foreground">
-              Customers choose one option. Each option has a total booking price
-              and an optional description, and uses the tour's payment choices.
+              Customers choose one option. Each base price covers the included
+              guests below. Extra guests use this package's adult, child,
+              infant, and senior fares. The tour's payment choices apply.
             </p>
           </div>
           <Button
@@ -443,6 +444,27 @@ function PackageCard({
             <Plus className="size-3" /> Add option
           </Button>
         </div>
+        <Field>
+          <FieldLabel className="text-xs">
+            Guests included in private base price
+          </FieldLabel>
+          <Input
+            aria-label="Guests included in private base price"
+            type="number"
+            min={1}
+            max={1000}
+            step={1}
+            value={pkg.privateIncludedPax ?? 6}
+            className="h-9 max-w-40"
+            onChange={(event) =>
+              onChange({ privateIncludedPax: Number(event.target.value) })
+            }
+          />
+          <p className="text-xs text-muted-foreground">
+            Included places cover the highest passenger fares first. This does
+            not change the tour's booking limit or departure capacity.
+          </p>
+        </Field>
         {!pkg.privateTourOptions?.length ? (
           <Field>
             <FieldLabel className="text-xs">
@@ -495,7 +517,7 @@ function PackageCard({
                   />
                 </Field>
                 <Field>
-                  <FieldLabel className="text-xs">Total price (AED)</FieldLabel>
+                  <FieldLabel className="text-xs">Base price (AED)</FieldLabel>
                   <Input
                     aria-label={`Private option ${index + 1} price`}
                     type="number"

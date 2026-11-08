@@ -105,6 +105,7 @@ export function createEmptyPackage(featured = false): PackageDraft {
     infantPrice: 0,
     seniorPrice: 0,
     privateTourPrice: 0,
+    privateIncludedPax: 6,
     privateTourOptions: [],
     featured,
     groupPriceTiers: [{ minPax: 4, pricePerPax: 0 }],
@@ -352,6 +353,7 @@ export function formFromDetail(detail: TourResponse): TourFormState {
                       infantPrice: pkg.infantPrice ?? 0,
                       seniorPrice: pkg.seniorPrice ?? 0,
                       privateTourPrice: pkg.privateTourPrice ?? undefined,
+                      privateIncludedPax: pkg.privateIncludedPax ?? 6,
                       privateTourOptions: pkg.privateTourOptions ?? [],
                       featured: pkg.featured,
                       groupPriceTiers:
@@ -462,6 +464,9 @@ export function validateTourForm(form: TourFormState) {
 
   for (const slot of form.timeslots) {
     for (const pkg of slot.packages) {
+      const included = pkg.privateIncludedPax ?? 6
+      if (!Number.isInteger(included) || included < 1 || included > 1000)
+        add("timeslots", "Private included guests must be between 1 and 1000")
       for (const option of pkg.privateTourOptions ?? []) {
         if (!option.name.trim() || option.name.trim().length > 160)
           add(
@@ -522,6 +527,7 @@ function buildPackageRequest(
       description: option.description.trim(),
       price: option.price,
     })),
+    privateIncludedPax: pkg.privateIncludedPax ?? 6,
     featured: pkg.featured,
     groupPriceTiers: tiers,
     checklist: cleanList(pkg.checklist),

@@ -168,6 +168,7 @@ export type TimeslotPackageRequest = {
   infantPrice?: number
   seniorPrice?: number
   privateTourPrice?: number
+  privateIncludedPax?: number
   privateTourOptions?: PrivateTourOption[]
   featured: boolean
   groupPriceTiers: GroupPriceTierRequest[]

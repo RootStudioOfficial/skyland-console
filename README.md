@@ -2,6 +2,10 @@
 
 This is a template for a new Vite project with React, TypeScript, and shadcn/ui.
 
+Private tour base prices include six guests by default. Timeslots & Packages lets staff change
+the included allowance per package; extra guests use that package's configured age fares.
+Included places cover the highest fares first. Booking limits and departure capacity remain separate.
+
 ## Adding components
 
 To add components to your app, run the following command:
